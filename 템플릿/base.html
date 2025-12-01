@@ -45,6 +45,25 @@
         <button type="submit">검색</button>
         {% if keyword %}<a href="/">초기화</a>{% endif %}
     </form>
+    <!--신발 리스트-->
+    <p class="mycenter">
+        {% if keyword %}"{{ keyword }}" 검색 결과: {{ shoes|length }}개
+        {% else %}전체: {{ shoes|length }}개{% endif %}
+    </p>
+        <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Experience</th>
+            <th>Weight</th>
+            <th>관리</th>
+
+        </tr>
+
+
+
     </div>
 
 
