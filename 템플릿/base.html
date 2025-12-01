@@ -32,7 +32,20 @@
 </head>
 <body>
   <h1 class="mycenter">2020 Brooks running shoes!</h1>
-  <h2 class="mycenter">Only for your foot!</h2>
+  <h2 class="mycenter">The pain of running relieves the pain of living</h2>
+
+      <div class="mycenter">
+        <a href="/">홈</a> | 
+        <a href="/add">추가</a>
+
+    
+    <!-- 검색 -->
+    <form action="/" method="GET" class="mycenter">
+        <input type="text" name="keyword" placeholder="검색어" value="{{ keyword }}">
+        <button type="submit">검색</button>
+        {% if keyword %}<a href="/">초기화</a>{% endif %}
+    </form>
+    </div>
 
 
 
