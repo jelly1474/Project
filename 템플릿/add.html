@@ -11,9 +11,28 @@
         th, td { border: 1px solid black; padding: 10px; }
         th { background-color: lightblue; }
         input, select { padding: 5px; margin: 5px; }
-        button { padding: 10px 20px; margin: 10px 5px; background-color: blue; color: white; border: none; cursor: pointer; }
+        button {
+        padding: 10px 20px;
+        margin: 10px 5px;
+        background-color: blue;
+        color: white;
+        border: none;
+        cursor: pointer;
+        }
     </style>
 </head>
+<body>
+    <h2 class="mycenter">새 러닝화 추가</h2>
+    
+    <form method="POST" action="/add">
+        <table>
+            <tr><th>Name</th><td><input type="text" name="name" required></td></tr>
+            <tr><th>Type</th><td>
+                <select name="type" required>
+                    <option value="Men's">Men's</option>
+                    <option value="Women's">Women's</option>
+                    <option value="Unisex">Unisex</option>
+                </select>
 
 
 
