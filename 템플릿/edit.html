@@ -39,11 +39,18 @@
 
             <tr><th>M/W</th><td>
                 <select name="type" required>
-                    <option value="Men's" {% if shoe['type']=="Men's" %}selected{% endif %}>Men's</option>
-                    <option value="Women's" {% if shoe['type']=="Women's" %}selected{% endif %}>Women's</option>
-                    <option value="Unisex" {% if shoe['type']=="Unisex" %}selected{% endif %}>Unisex</option>
+                    <option value="Men's" {% if shoe['type']=="Men's" %}selected{% endif %}>남</option>
+                    <option value="Women's" {% if shoe['type']=="Women's" %}selected{% endif %}>여</option>
+                    <option value="Unisex" {% if shoe['type']=="Unisex" %}selected{% endif %}>공용</option>
                 </select>
             </td></tr>
             <tr><th>가격</th><td><input type="number" name="price" step="0.01" value="{{ shoe['price'] }}" required></td></tr>
-            <tr><th>미드술</th><td></td>
+            <tr><th>미드솔</th><td></td>
+                <select name="experience" required>
+                    <option value="Cushion" {% if shoe['experience']=="Cushion" %}selected{% endif %}>Cushion</option>
+                    <option value="Energize" {% if shoe['experience']=="Energize" %}selected{% endif %}>Energize</option>
+                    <option value="Speed" {% if shoe['experience']=="Speed" %}selected{% endif %}>Speed</option>
+                    <option value="Connect" {% if shoe['experience']=="Connect" %}selected{% endif %}>Connect</option>
+                </select>
+            </td></tr>
             <tr><th>무게</th><td></td>
