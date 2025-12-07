@@ -12,11 +12,16 @@ def get_db():
     return conn
 
 def init_db():
-
     conn = get_db()
-    try:
-        cur = conn.cursor()
-        cur.execute(sql)
-        conn.commit()
-    finally:
-        conn.close()
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS shoes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            type TEXT,
+            price REAL,
+            experience TEXT,
+            weight REAL
+        )
+    ''')
+    conn.commit()
+    conn.close()
