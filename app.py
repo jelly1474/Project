@@ -43,29 +43,18 @@ def index():
 
 
 
-#추가
+#추가 부분
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
-        name       = request.form.get('name')
-        shoe_type  = request.form.get('type')
-        price      = request.form.get('price')
-        experience = request.form.get('experience')
-        weight     = request.form.get('weight')
-
         conn = get_db()
-        try:
-            conn.execute(
-                '''
-                INSERT INTO shoes (name, type, price, experience, weight)
-                VALUES (?, ?, ?, ?, ?)
-                ''',
-                (name, shoe_type, price, experience, weight)
-            )
-            conn.commit()
-        finally:
-            conn.close()
-
-        return redirect(url_for('index'))
+        conn.execute(
+            'INSERT INTO shoes (name, type, price, experience, weight) VALUES (?,?,?,?,?)',
+            (request.form['name'], request.form['type'], request.form['price'], 
+             request.form['experience'], request.form['weight'])
+        )
+        conn.commit()
+        conn.close()
+        return redirect('/')
 
     return render_template('add.html')
