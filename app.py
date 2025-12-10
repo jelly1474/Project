@@ -58,8 +58,9 @@ def add():
             conn.execute(
                 '''
                 INSERT INTO shoes (name, type, price, experience, weight)
+                VALUES (?, ?, ?, ?, ?)
                 ''',
-                
+                (name, shoe_type, price, experience, weight)
             )
             conn.commit()
         finally:
