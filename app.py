@@ -25,23 +25,18 @@ def init_db():
     ''')
     conn.commit()
     conn.close()
-
+# 메인페이지
 @app.route('/')
 def index():
-    keyword = request.args.get('keyword', '').strip()
+    keyword = request.args.get('keyword', '')
     conn = get_db()
-    
-    base_sql = "SELECT * FROM shoes"
-    params = []
-
     if keyword:
-        base_sql += " WHERE name LIKE ? OR experience LIKE ?"
-        like_kw = f"%{keyword}%"
-        params.extend([like_kw, like_kw])
-
-    base_sql += " ORDER BY name"
-
-    shoes = conn.execute(base_sql, params).fetchall()
+        shoes = conn.execute(
+            'SELECT * FROM shoes WHERE name LIKE ? OR experience LIKE ? ORDER BY name',
+            ('%'+keyword+'%', '%'+keyword+'%')
+        ).fetchall()
+    else:
+        shoes = conn.execute('SELECT * FROM shoes ORDER BY name').fetchall()
     
     conn.close()
     return render_template('base.html', shoes=shoes, keyword=keyword)
