@@ -25,3 +25,23 @@ def init_db():
     ''')
     conn.commit()
     conn.close()
+
+@app.route('/')
+def index():
+    keyword = request.args.get('keyword', '').strip()
+    conn = get_db()
+    
+    base_sql = "SELECT * FROM shoes"
+    params = []
+
+    if keyword:
+        base_sql += " WHERE name LIKE ? OR experience LIKE ?"
+        like_kw = f"%{keyword}%"
+        params.extend([like_kw, like_kw])
+
+    base_sql += " ORDER BY name"
+
+    shoes = conn.execute(base_sql, params).fetchall()
+    
+    conn.close()
+    return render_template('base.html', shoes=shoes, keyword=keyword)
