@@ -40,3 +40,31 @@ def index():
     
     conn.close()
     return render_template('base.html', shoes=shoes, keyword=keyword)
+
+
+
+#추가
+@app.route('/add', methods=['GET', 'POST'])
+def add():
+    if request.method == 'POST':
+        name       = request.form.get('name')
+        shoe_type  = request.form.get('type')
+        price      = request.form.get('price')
+        experience = request.form.get('experience')
+        weight     = request.form.get('weight')
+
+        conn = get_db()
+        try:
+            conn.execute(
+                '''
+                INSERT INTO shoes (name, type, price, experience, weight)
+                ''',
+                
+            )
+            conn.commit()
+        finally:
+            conn.close()
+
+        return redirect(url_for('index'))
+
+    return render_template('add.html')
