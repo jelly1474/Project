@@ -59,21 +59,20 @@ def add():
 
     return render_template('add.html')
 
-
+#에딧부분
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit(id):
+    conn = get_db()
     if request.method == 'POST':
-        name       = request.form.get('name')
-        shoe_type  = request.form.get('type')
-        price      = request.form.get('price')
-        experience = request.form.get('experience')
-        weight     = request.form.get('weight')
-
-        conn = get_db()
-        try:
-            conn.execute(
-                '''
-                UPDATE shoes
-                SET name = ?, type = ?, price = ?, experience = ?, weight = ?
-                WHERE id = ?
-                ''',
+        conn.execute(
+        'UPDATE shoes SET name=?, type=?, price=?, experience=?, weight=? WHERE id=?',
+        (request.form['name'], request.form['type'], request.form['price'],
+        request.form['experience'], request.form['weight'], id)
+        )
+        conn.commit()
+        conn.close()
+        return redirect('/')
+    
+    shoe = conn.execute('SELECT * FROM shoes WHERE id=?', (id,)).fetchone()
+    conn.close()
+    return render_template('edit.html', shoe=shoe)
