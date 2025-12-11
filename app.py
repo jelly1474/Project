@@ -81,13 +81,7 @@ def edit(id):
 @app.route('/delete/<int:id>')
 def delete(id):
     conn = get_db()
-    try:
-        conn.execute(
-            'DELETE FROM shoes WHERE id = ?',
-            (id,)
-        )
-        conn.commit()
-    finally:
-        conn.close()
-
-    return redirect(url_for('index'))
+    conn.execute('DELETE FROM shoes WHERE id=?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect('/')
