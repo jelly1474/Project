@@ -40,6 +40,7 @@ def load_csv():
                     'INSERT INTO shoes (name, type, price, experience, weight) VALUES (?,?,?,?,?)',
                     (row['Name'], row['Type'], float(row['Price']), row['Experience'], weight)
                 )
+        conn.commit()    
     conn.close()
 
 
