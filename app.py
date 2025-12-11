@@ -85,3 +85,8 @@ def delete(id):
     conn.commit()
     conn.close()
     return redirect('/')
+
+if __name__ == 'main':
+    init_db()
+    load_csv()
+    app.run()
