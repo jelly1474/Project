@@ -58,3 +58,22 @@ def add():
         return redirect('/')
 
     return render_template('add.html')
+
+
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    if request.method == 'POST':
+        name       = request.form.get('name')
+        shoe_type  = request.form.get('type')
+        price      = request.form.get('price')
+        experience = request.form.get('experience')
+        weight     = request.form.get('weight')
+
+        conn = get_db()
+        try:
+            conn.execute(
+                '''
+                UPDATE shoes
+                SET name = ?, type = ?, price = ?, experience = ?, weight = ?
+                WHERE id = ?
+                ''',
