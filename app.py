@@ -29,9 +29,17 @@ def init_db():
 
 def load_csv():
     conn = get_db()
-    df = pd.read_csv('BrooksShoes.csv')
-    df.to_sql('shoes', conn, if_exists='replace', index=False)
-    conn.commit()
+    count = conn.execute('SELECT COUNT(*) FROM shoes').fetchone()[0]
+    
+    if count == 0:
+        with open('BrooksShoes.csv', 'r', encoding='utf-8-sig') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                weight = float(row['Weight(g)']) if row['Weight(g)'] else 0
+                conn.execute(
+                    'INSERT INTO shoes (name, type, price, experience, weight) VALUES (?,?,?,?,?)',
+                    (row['Name'], row['Type'], float(row['Price']), row['Experience'], weight)
+                )
     conn.close()
 
 
