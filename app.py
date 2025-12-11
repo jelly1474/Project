@@ -76,3 +76,18 @@ def edit(id):
     shoe = conn.execute('SELECT * FROM shoes WHERE id=?', (id,)).fetchone()
     conn.close()
     return render_template('edit.html', shoe=shoe)
+
+#삭제부분
+@app.route('/delete/<int:id>')
+def delete(id):
+    conn = get_db()
+    try:
+        conn.execute(
+            'DELETE FROM shoes WHERE id = ?',
+            (id,)
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+    return redirect(url_for('index'))
