@@ -86,7 +86,7 @@ def delete(id):
     conn.close()
     return redirect('/')
 
-if __name__ == 'main':
+if __name__ == '__main__':
     init_db()
     load_csv()
-    app.run()
+    app.run(debug=True)
