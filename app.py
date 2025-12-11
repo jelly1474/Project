@@ -25,6 +25,17 @@ def init_db():
     ''')
     conn.commit()
     conn.close()
+
+
+def load_csv():
+    conn = get_db()
+    df = pd.read_csv('BrooksShoes.csv')
+    df.to_sql('shoes', conn, if_exists='replace', index=False)
+    conn.commit()
+    conn.close()
+
+
+
 # 메인페이지
 @app.route('/')
 def index():
@@ -85,6 +96,7 @@ def delete(id):
     conn.commit()
     conn.close()
     return redirect('/')
+
 
 if __name__ == '__main__':
     init_db()
